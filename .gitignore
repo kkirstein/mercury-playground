@@ -1,0 +1,12 @@
+# backup files
+*~
+
+# build output
+Mercury/
+*.err
+*.mh
+*.d
+
+# executables
+*.exe
+
