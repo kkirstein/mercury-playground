@@ -17,33 +17,37 @@
 :- import_module perfect_number.
 :- import_module benchmarking.
 
+%-----------------------------------------------------------------------------%
+
+:- pred time_fun(string, func(T1) = T2, T1, T2, int, io, io).
+:- mode time_fun(in, func(in) = out is det, in, out, in, di, uo) is cc_multi.
+
+time_fun(NAME, FUN, IN, RESULT, REP, IO_IN, IO_OUT) :-
+	benchmark_func(FUN, IN, RESULT, REP, Elapsed),
+	io.format("%s = ", [s(NAME)], IO_IN, IO_1),
+	io.write(RESULT, IO_1, IO_2),
+	io.format("\nElapsed time %dms for %d repetitions (%.3fms/run).\n",
+		[i(Elapsed), i(REP), f(float(Elapsed)/float(REP))], IO_2, IO_OUT).
+
+%-----------------------------------------------------------------------------%
+
 main(!IO) :-
 
 	% Fibonacci numbers
 	% =================
-	benchmark_func(fib_i, 35, Res_i, 10, Elapsed_i),
-	io.format("fib_i(35) = %d (Elapsed time for 10 repetitions: %dms)\n",
-		[i(Res_i), i(Elapsed_i)], !IO),
+	Inp1 = 35,
+	Inp2 = integer.integer(1000),
+
+	time_fun(string.format("fib(%d) (int)", [i(Inp1)]),
+		fib_i, Inp1, _, 10, !IO),
 	io.nl(!IO),
 
-	benchmark_func(fib_f, 35.0, Res_f, 10, Elapsed_f),
-	io.format("fib_f(35) = %.0f (Elapsed time for 10 repetitions: %dms)\n",
-		[f(Res_f), i(Elapsed_f)], !IO),
+	time_fun(string.format("fib(%d) (int, tail-recursive) ", [i(Inp1)]),
+		fib_int_t, Inp1, _, 1000, !IO),
 	io.nl(!IO),
 
-	benchmark_func(fib_int_t, 35, Res_int_t, 100, Elapsed_int_t),
-	io.format("fib_int_t(35) = %d (Elapsed time for 100 repetitions: %dms)\n",
-		[i(Res_int_t), i(Elapsed_int_t)], !IO),
-	io.nl(!IO),
-
-	benchmark_func(fib_float_t, 1000, Res_float_t, 1000, Elapsed_float_t),
-	io.format("fib_float_t(1000) = %.0f (Elapsed time for 1000 repetitions: %dms)\n",
-		[f(Res_float_t), i(Elapsed_float_t)], !IO),
-	io.nl(!IO),
-
-	benchmark_func(fib_bigint_t, integer.integer(1000), Res_bigint_t, 1000, Elapsed_bigint_t),
-	io.format("fib_bigint_t(1000) = %s (Elapsed time for 1000 repetitions: %dms)\n",
-		[s(integer.to_string(Res_bigint_t)), i(Elapsed_bigint_t)], !IO),
+	time_fun(string.format("fib(%s) (bigint, tail-recursive) ", [s(integer.to_string(Inp2))]),
+		fib_bigint_t, Inp2, _, 1000, !IO),
 	io.nl(!IO),
 
 	% Perfect numbers
