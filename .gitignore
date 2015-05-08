@@ -1,5 +1,6 @@
 # backup files
 *~
+*.swp
 
 # build output
 Mercury/
@@ -9,4 +10,5 @@ Mercury/
 
 # executables
 *.exe
+*.dll
 
