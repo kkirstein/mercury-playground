@@ -15,6 +15,7 @@
 :- import_module int, float, list, string, integer.
 :- import_module fib.
 :- import_module perfect_number.
+:- import_module mandelbrot.
 :- import_module benchmarking.
 
 %-----------------------------------------------------------------------------%
@@ -60,6 +61,9 @@ main(!IO) :-
     io.format("Elapsed time %dms for %d repetitions (%.3fms/run).\n",
         [i(Elapsed_pn), i(10), f(float(Elapsed_pn)/float(10))], !IO),
     io.nl(!IO),
+
+    %time_fun_scalar("Perfect numbers ", perfect_numbers, 10000, PN, 10, !IO),
+    %io.nl(!IO),
 
     io.write_string("Press <ENTER> to continue..", !IO),
     io.read_char(stdin_stream, _, !IO).
