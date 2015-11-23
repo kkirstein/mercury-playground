@@ -11,21 +11,21 @@ echo "Europe/Zurich" > /etc/timezone
 dpkg-reconfigure -f noninteractive tzdata
 
 # install mercury ROTD
-echo ""
+echo " "
 echo Installing dependencies
 echo =======================
 apt-get -y install flex
 apt-get -y install bison
 
-echo ""
-echo Downloading mercury-ROTF
+echo " "
+echo Downloading mercury-ROTD
 echo ========================
 rotd="2015-11-16"
 curl --silent --insecure http://dl.mercurylang.org/rotd/mercury-srcdist-rotd-${rotd}.tar.gz -O
 tar -xf mercury-srcdist-rotd-${rotd}.tar.gz
 chown -R vagrant mercury-srcdist-${rotd}
 
-echo ""
+echo " "
 echo Build mercury
 echo =============
 cd mercury-srcdist-rotd-${rotd}
