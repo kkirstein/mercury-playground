@@ -30,10 +30,10 @@ echo Build mercury
 echo =============
 cd mercury-srcdist-rotd-${rotd}
 ./configure --disable-most-grades
-make PARALLEL=-j2 install
+make PARALLEL=-j4 install
 
 if [ ! `which mmc` ]; then
-	echo 'export PATH=$PATH:/usr/local/mercury-rotd-${rotd}/bin' >> /etc/profile
+	echo "export PATH=\$PATH:/usr/local/mercury-rotd-${rotd}/bin" >> /etc/profile
 fi
 
 
