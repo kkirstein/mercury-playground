@@ -11,6 +11,7 @@ Mercury/
 # executables
 *.exe
 *.dll
+Benchmark/benchmark
 
 # vagrant
 .vagrant
