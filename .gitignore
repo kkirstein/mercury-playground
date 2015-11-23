@@ -12,3 +12,6 @@ Mercury/
 *.exe
 *.dll
 
+# vagrant
+.vagrant
+
