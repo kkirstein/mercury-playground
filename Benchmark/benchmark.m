@@ -65,6 +65,8 @@ main(!IO) :-
     %time_fun_scalar("Perfect numbers ", perfect_numbers, 10000, PN, 10, !IO),
     %io.nl(!IO),
 
+    % Finished
+    % ========
     io.write_string("Press <ENTER> to continue..", !IO),
     io.read_char(stdin_stream, _, !IO).
 

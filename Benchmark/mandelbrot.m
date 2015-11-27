@@ -6,7 +6,6 @@
 :- module mandelbrot.
 
 :- interface.
-:- import_module io.
 :- import_module int, float, list.
 
 :- pred mandelbrot(int::in, int::in,
