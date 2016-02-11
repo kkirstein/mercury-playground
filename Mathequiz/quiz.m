@@ -45,7 +45,7 @@ limit(A, B, C, D, E, F, G, H, I) :-
 
 distinct(A, B, C, D, E, F, G, H, I) :-
     A != B.
-% TODO
+% TODO: define like different pred from chapter 1
 
 %-----------------------------------------------------------------------------%
 
