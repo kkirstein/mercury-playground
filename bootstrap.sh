@@ -20,7 +20,7 @@ apt-get -y install bison
 echo " "
 echo Downloading mercury-ROTD
 echo ========================
-rotd="2015-11-16"
+rotd="2016-02-08"
 curl --silent --insecure http://dl.mercurylang.org/rotd/mercury-srcdist-rotd-${rotd}.tar.gz -O
 tar -xf mercury-srcdist-rotd-${rotd}.tar.gz
 chown -R vagrant mercury-srcdist-${rotd}
