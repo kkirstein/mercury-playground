@@ -1,8 +1,8 @@
-% quiz.m A math quiz similar to Sudoku
+% puzzle.m A math quiz similar to Sudoku
 %
 % vim: ft=mercury ts=4 sw=4 et
 
-:- module quiz.
+:- module puzzle.
 
 :- interface.
 :- import_module io.
