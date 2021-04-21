@@ -24,13 +24,23 @@
 :- mode time_fun_scalar(in, func(in) = out is det, in, out, in, di, uo)
     is cc_multi.
 
-time_fun_scalar(NAME, FUN, IN, RESULT, REP, IO_IN, IO_OUT) :-
+time_fun_scalar(NAME, FUN, IN, RESULT, REP, !IO) :-
     benchmark_func(FUN, IN, RESULT, REP, Elapsed),
-    io.format("%s = ", [s(NAME)], IO_IN, IO_1),
-    io.write(RESULT, IO_1, IO_2),
+    io.format("%s = ", [s(NAME)], !IO),
+    io.write(RESULT, !IO),
     io.format("\nElapsed time %dms for %d repetitions (%.3fms/run).\n",
-        [i(Elapsed), i(REP), f(float(Elapsed)/float(REP))], IO_2, IO_OUT).
+        [i(Elapsed), i(REP), f(float(Elapsed)/float(REP))], !IO).
 
+:- pred time_fun_integer(string, func(T1) = integer, T1, int, io, io).
+:- mode time_fun_integer(in, func(in) = out is det, in, in, di, uo) is cc_multi.
+
+time_fun_integer(NAME, FUN, IN, REP, !IO) :-
+    benchmark_func(FUN, IN, RESULT, REP, Elapsed),
+    io.format("%s = ", [s(NAME)], !IO),
+    io.write(integer.to_string(RESULT), !IO),
+    io.format("\nElapsed time %dms for %d repetitions (%.3fms/run).\n",
+        [i(Elapsed), i(REP), f(float(Elapsed)/float(REP))], !IO).
+    
 %-----------------------------------------------------------------------------%
 
 main(!IO) :-
@@ -48,8 +58,8 @@ main(!IO) :-
         fib_int_t, Inp1, _, 1000, !IO),
     io.nl(!IO),
 
-    time_fun_scalar(string.format("fib(%s) (bigint, tail-recursive) ",
-        [s(integer.to_string(Inp2))]), fib_bigint_t, Inp2, _, 1000, !IO),
+    time_fun_integer(string.format("fib(%s) (bigint, tail-recursive) ",
+        [s(integer.to_string(Inp2))]), fib_bigint_t, Inp2, 1000, !IO),
     io.nl(!IO),
 
     % Perfect numbers
@@ -62,11 +72,9 @@ main(!IO) :-
         [i(Elapsed_pn), i(10), f(float(Elapsed_pn)/float(10))], !IO),
     io.nl(!IO),
 
-    %time_fun_scalar("Perfect numbers ", perfect_numbers, 10000, PN, 10, !IO),
-    %io.nl(!IO),
-
     % Finished
     % ========
-    io.write_string("Press <ENTER> to continue..", !IO),
-    io.read_char(stdin_stream, _, !IO).
+    %io.write_string("Press <ENTER> to continue..", !IO),
+    %io.read_char(stdin_stream, _, !IO).
+    io.nl(!IO).
 
