@@ -23,7 +23,6 @@
 :- pred time_fun_scalar(string, func(T1) = T2, T1, T2, int, io, io).
 :- mode time_fun_scalar(in, func(in) = out is det, in, out, in, di, uo)
     is cc_multi.
-
 time_fun_scalar(NAME, FUN, IN, RESULT, REP, !IO) :-
     benchmark_func(FUN, IN, RESULT, REP, Elapsed),
     io.format("%s = ", [s(NAME)], !IO),
@@ -33,7 +32,6 @@ time_fun_scalar(NAME, FUN, IN, RESULT, REP, !IO) :-
 
 :- pred time_fun_integer(string, func(T1) = integer, T1, int, io, io).
 :- mode time_fun_integer(in, func(in) = out is det, in, in, di, uo) is cc_multi.
-
 time_fun_integer(NAME, FUN, IN, REP, !IO) :-
     benchmark_func(FUN, IN, RESULT, REP, Elapsed),
     io.format("%s = ", [s(NAME)], !IO),
